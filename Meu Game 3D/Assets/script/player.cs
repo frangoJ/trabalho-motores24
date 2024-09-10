@@ -15,11 +15,12 @@ public class player : MonoBehaviour
     public bool Nochao;
     
     public Rigidbody rb;
-    // Start is called before the first frame update
+    private AudioSource source;
     void Start()
     {
         Debug.Log("start");
         TryGetComponent(out rb);
+        TryGetComponent(out source);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -41,6 +42,7 @@ public class player : MonoBehaviour
 
          if (Input.GetKeyDown(KeyCode.Space) && Nochao)
          {
+             source.Play();
              rb.AddForce(Vector3.up * forcapulo, ForceMode.Impulse);
              Nochao = false;
          }

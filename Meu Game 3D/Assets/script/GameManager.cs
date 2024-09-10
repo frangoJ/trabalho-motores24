@@ -6,10 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI hud, msgvitoria;
     public int restantes;
-    
-    // Start is called before the first frame update
+    public AudioClip clipmoeda, clipvitoria;
+
+    private AudioSource sources;
     void Start()
     {
+        TryGetComponent(out sources);
         restantes = FindObjectsOfType<Moeda>().Length;
 
         hud.text = $"moedas restantes : {restantes}";
@@ -21,12 +23,14 @@ public class GameManager : MonoBehaviour
     {
         restantes -= valor;
         hud.text = $"moedas restantes: {restantes}";
+        sources.PlayOneShot(clipmoeda);
 
-        if (restantes <= 0) ;
-
+        if (restantes <= 0)
         {
             //ganhou o game ne pai
             msgvitoria.text = "parabéns";
+            sources.Stop();
+            sources.PlayOneShot(clipvitoria);
         }
     }
 
